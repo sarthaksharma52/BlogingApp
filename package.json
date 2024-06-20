@@ -4,7 +4,7 @@
   "description": "this is a bloging app",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "repository": {
@@ -14,9 +14,12 @@
   "author": "Sarthak Sharma",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "mongoose": "^8.4.1"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.3"

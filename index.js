@@ -1,32 +1,58 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
+// Import the Blog model
+const Blog = require('./models/blog');
+
+// Import routes
 const userRoute = require("./routes/user");
-const { connect } = require('http2');
+const blogRoute = require("./routes/blog");
+
+// Import middlewares
+const { CheckForAuthenticationCookie } = require('./middlewares/authentication');
 
 const app = express();
 const port = 8000;
 
-//midlewares
+// Middlewares
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(CheckForAuthenticationCookie('token'));
+app.use(express.static(path.resolve('./public')));
 
-app.use(express.urlencoded({extended:false}));
-
-
+// Database connection
 mongoose.connect('mongodb://127.0.0.1:27017/blogify')
-.then((e)=>{ console.log("mongodb connected")})
-.catch()
+    .then(() => { console.log("mongodb connected"); })
+    .catch((err) => { console.error("mongodb connection error:", err); });
 
+// View engine setup
 app.set('view engine', 'ejs');
-app.set("views",path.resolve("./views"));
+app.set("views", path.resolve("./views"));
 
-
-app.get("/",(req,res)=>{
-    res.render("home");
+// Routes
+app.get("/home", async (req, res, next) => {
+    try {
+        const allBlogs = await Blog.find({});
+        res.render("home", {
+            user: req.user,
+            blogs: allBlogs,
+        });
+    } catch (err) {
+        next(err);
+    }
 });
 
 app.use('/user', userRoute);
+app.use('/blog', blogRoute);
 
-app.listen(port,(req,res)=>{
-    console.log(`app is listen at port:${port}`);
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+app.listen(port, () => {
+    console.log(`app is listening at port: ${port}`);
 });

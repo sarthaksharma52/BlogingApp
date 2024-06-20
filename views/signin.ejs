@@ -5,9 +5,10 @@
    <title>Signup</title>
 </head>
 <body>
-    <%- include('./partials/navbar') %>
-
-    <h2>SignIn</h2>
+  <%- include('./partials/navbar') %>
+  <div class="container pt-5">
+    
+    <h2 class="pt-4">SignIn</h2>
 
     <form method="post" action="/user/signin">
       <div class="container mt-3">
@@ -25,5 +26,6 @@
       </form>
 
     <%- include('./partials/script') %>
+  </div>
 </body>
 </html>
