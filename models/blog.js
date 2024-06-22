@@ -13,10 +13,10 @@ const blogSchema = new Schema({
         type: String,
         required: false,
     },
-    CreatedBy:{
-        type:Schema.Types.ObjectId,
-        ref: "user",
-    }
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "user",  // Ensure this matches your user model name
+    },
 },
 { timestamps:true }
 );
