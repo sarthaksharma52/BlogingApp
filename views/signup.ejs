@@ -9,8 +9,7 @@
 
     <h2>SignUp</h2>
 
-
-    <form method="post" action="/user/signup">
+    <form method="post" action="/user/signup" enctype="multipart/form-data">
       <div class="container mt-3">
         <div class="mb-3">
           <label for="exampleInputName" class="form-label">Full Name</label>
@@ -25,9 +24,13 @@
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input type="password" name="password" class="form-control" id="exampleInputPassword1">
         </div>
+        <div class="mb-3">
+          <label for="exampleInputprofileImageURL" class="form-label">Profile Image</label>
+          <input type="file" name="ProfileImage" class="form-control" id="exampleInputprofileImageURL">
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
-      </form>
+    </form>
 
     <%- include('./partials/script') %>
 </body>

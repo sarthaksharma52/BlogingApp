@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%- include('./partials/head') %>
-    <title>Home</title>
+    <title>Blog</title>
 </head>
 <body>
     <%- include('./partials/navbar') %>
@@ -13,7 +13,7 @@
     </div>
     <div class="container mt-5">
         <% if (blog.createdBy) { %>
-            <img src="<%= blog.createdBy.profileImageURL %>" height="50px" alt="" ><%=   blog.createdBy.fullName %>
+            <img src="<%= blog.createdBy.profileImageURL %>" height="50px" alt="" ><%= blog.createdBy.fullName %>
         <% } else { %>
             <p>Author information not available</p>
         <% } %>
@@ -25,18 +25,20 @@
                 <div class="mb-3">
                     <input type="text" name="content" placeholder="enter your comment" aria-describedby="emailHelp">
                     <button class="btn btn-sm btn-primary" type="submit">Add</button>
-                  </div>
+                </div>
             </form>
-            
         <% } %>
         <div class="mt-3">
             <% comments.forEach(comment => { %>
-                <img src="<%= comment.createdBy.profileImageURL %>" height="50px" width="50px" alt="" ><%=comment.createdBy.fullName %>
+                <% if (comment.createdBy) { %>
+                    <img src="<%= comment.createdBy.profileImageURL %>" height="50px" width="50px" alt="" ><%= comment.createdBy.fullName %>
+                <% } else { %>
+                    <p>Commenter information not available</p>
+                <% } %>
                 <pre><%= comment.content %></pre>
             <% }) %>
         </div>
     </div>
-
 
     <%- include('./partials/script') %>
 </body>
