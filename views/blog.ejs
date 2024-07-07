@@ -3,39 +3,114 @@
 <head>
     <%- include('./partials/head') %>
     <title>Blog</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .blog-cover img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .blog-body {
+            white-space: pre-wrap;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .author-info img {
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .comments-section {
+            margin-top: 50px;
+        }
+        .comment-form input {
+            width: calc(100% - 100px);
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .comment-form button {
+            display: inline-block;
+        }
+        .comment {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .comment img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .comment .content {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <%- include('./partials/navbar') %>
     <div class="container mt-5">
-        <h1 class="mt-5"><%= blog.title %></h1>
-        <img class="mt-3" src="<%= blog.CoverImageUrl %>" height="350px" width="400px" alt="">
-        <pre class="mt-5"><%= blog.body %></pre>
+        <h1 class="blog-title"><%= blog.title %></h1>
+        <div class="blog-cover mt-3">
+            <img src="<%= blog.CoverImageUrl %>" alt="Blog Cover Image">
+        </div>
+        <div class="blog-body mt-5">
+            <%= blog.body %>
+        </div>
     </div>
     <div class="container mt-5">
         <% if (blog.createdBy) { %>
-            <img src="<%= blog.createdBy.profileImageURL %>" height="50px" alt="" ><%= blog.createdBy.fullName %>
+            <div class="author-info">
+                <img src="<%= blog.createdBy.profileImageURL %>" height="50px" alt="Author Profile Image">
+                <span><strong><%= blog.createdBy.fullName %></strong></span>
+            </div>
         <% } else { %>
             <p>Author information not available</p>
         <% } %>
     </div>
-    <div class="container mt-4">
-        <h1>Comments(<%= comments.length %>)</h1>
+    <div class="container comments-section">
+        <h2>Comments (<%= comments.length %>)</h2>
         <% if (locals.user) { %>
-            <form action="/blog/comment/<%= blog._id %>" method="post">
+            <form class="comment-form mt-3" action="/blog/comment/<%= blog._id %>" method="post">
                 <div class="mb-3">
-                    <input type="text" name="content" placeholder="enter your comment" aria-describedby="emailHelp">
+                    <input type="text" name="content" placeholder="Enter your comment" class="form-control" aria-describedby="commentHelp">
                     <button class="btn btn-sm btn-primary" type="submit">Add</button>
                 </div>
             </form>
         <% } %>
         <div class="mt-3">
             <% comments.forEach(comment => { %>
-                <% if (comment.createdBy) { %>
-                    <img src="<%= comment.createdBy.profileImageURL %>" height="50px" width="50px" alt="" ><%= comment.createdBy.fullName %>
-                <% } else { %>
-                    <p>Commenter information not available</p>
-                <% } %>
-                <pre><%= comment.content %></pre>
+                <div class="comment">
+                    <% if (comment.createdBy) { %>
+                        <img src="<%= comment.createdBy.profileImageURL %>" height="50px" width="50px" alt="Commenter Profile Image">
+                        <strong><%= comment.createdBy.fullName %></strong>
+                    <% } else { %>
+                        <p>Commenter information not available</p>
+                    <% } %>
+                    <div class="content">
+                        <%= comment.content %>
+                    </div>
+                </div>
             <% }) %>
         </div>
     </div>
