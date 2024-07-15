@@ -65,6 +65,14 @@
         .comment .content {
             margin-top: 10px;
         }
+        .section5 {
+            display: flex;
+            flex-direction: row;
+        }
+        .like {
+            margin: 2rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -79,14 +87,17 @@
         </div>
     </div>
     <div class="container mt-5">
-        <% if (blog.createdBy) { %>
-            <div class="author-info">
-                <img src="<%= blog.createdBy.profileImageURL %>" height="50px" alt="Author Profile Image">
-                <span><strong><%= blog.createdBy.fullName %></strong></span>
-            </div>
-        <% } else { %>
-            <p>Author information not available</p>
-        <% } %>
+        <div class="section5">
+            <% if (blog.createdBy) { %>
+                <div class="author-info">
+                    <img src="<%= blog.createdBy.profileImageURL %>" height="50px" alt="Author Profile Image">
+                    <span><strong><%= blog.createdBy.fullName %></strong></span>
+                </div>
+            <% } else { %>
+                <p>Author information not available</p>
+            <% } %>
+            
+        </div>
     </div>
     <div class="container comments-section">
         <h2>Comments (<%= comments.length %>)</h2>
@@ -115,6 +126,18 @@
         </div>
     </div>
 
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const likeButton = document.getElementById("like");
+            if (likeButton) {
+                likeButton.addEventListener("click", () => {
+                    // Implement your like functionality here
+                    let count = 0;
+                    count = count+1;
+                });
+            }
+        });
+    </script> -->
     <%- include('./partials/script') %>
 </body>
 </html>

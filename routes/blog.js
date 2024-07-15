@@ -28,6 +28,7 @@ router.get("/:id", async (req, res, next) => {
     try {
         const blog = await Blog.findById(req.params.id).populate("createdBy");
         const comments = await Comment.find({blogId: req.params.id }).populate("createdBy");
+        // const count = blog.likesCount || 0;
         if (!blog) {
             return res.status(404).send('Blog not found');
         }
