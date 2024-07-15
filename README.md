@@ -42,7 +42,7 @@ A feature-rich blogging platform built using Node.js, Express, and EJS, with Mon
     ```sh
     npm start
     ```
-    The app should now be running on `http://localhost:3000`.
+    The app should now be running on `http://localhost:8000`.
 
 ## Usage
 
