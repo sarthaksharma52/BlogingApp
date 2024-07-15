@@ -82,6 +82,9 @@
        font-size: 14px;
        line-height: 1.5;
      }
+     .heading{
+      color: #017BFE;
+     }
 
      .custom-file-input:hover::before {
        background-color: #0056b3;
@@ -92,7 +95,7 @@
 <body>
     <%- include('./partials/navbar') %>
     <div class="container">
-      <h2>Add a New Blog</h2>
+      <h2 class="heading">Add a New Blog</h2>
       <form action="/blog/home1" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="CoverImage" class="form-label">Cover Image</label>
