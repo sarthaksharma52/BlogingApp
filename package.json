@@ -4,8 +4,8 @@
   "description": "this is a bloging app",
   "main": "app.js",
   "scripts": {
-    "start": "node cluster.js",
-    "dev": "nodemon cluster.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
